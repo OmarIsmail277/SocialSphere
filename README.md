@@ -27,7 +27,7 @@ Coming soon...
 ---
 
 ## 📁 Folder Structure
-
+```
 SOCIALSPHERE/
 ├── assets/
 │   └── images/
@@ -43,3 +43,4 @@ SOCIALSPHERE/
 ├── db.json              ← قاعدة بيانات JSON Server (لاحقًا)
 ├── index.html
 └── README.md
+```
