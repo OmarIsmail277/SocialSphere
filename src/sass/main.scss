@@ -3,7 +3,6 @@
   margin: 0;
   box-sizing: border-box;
 }
-
 body {
   background-color: rgb(239, 238, 244);
   font-family: "Rubik", sans-serif;
@@ -15,12 +14,14 @@ nav {
   width: 100%;
   height: 100px;
   background-color: #fff;
+
+  a {
+    width: 100px;
+    height: 100px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 }
-nav a {
-  width: 100px;
-  height: 100px;
-}
-nav img {
-  width: 100%;
-  height: 100%;
-}/*# sourceMappingURL=main.css.map */
