@@ -1,3 +1,69 @@
+.login-page {
+  background: linear-gradient(135deg, #c8e8ff, #e5d4ff);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-page .login-container {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+}
+.login-page .login-container .login-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.login-page .login-container .login-card h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+.login-page .login-container .login-card p {
+  color: #777;
+  margin-bottom: 1.5rem;
+}
+.login-page .login-container .login-card .form-group {
+  margin-bottom: 1.2rem;
+}
+.login-page .login-container .login-card label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+}
+.login-page .login-container .login-card input {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.login-page .login-container .login-card .btn-login {
+  width: 100%;
+  padding: 0.8rem;
+  background: #6a11cb;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+.login-page .login-container .login-card .btn-login:hover {
+  opacity: 0.9;
+}
+.login-page .login-container .login-card .register-link {
+  margin-top: 1rem;
+  text-align: center;
+}
+.login-page .login-container .login-card .register-link a {
+  color: #6a11cb;
+  text-decoration: underline;
+}
+
 * {
   padding: 0;
   margin: 0;
