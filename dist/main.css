@@ -12,9 +12,16 @@
 }
 .login-page .login-container .login-card {
   background: #fff;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 16px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+.login-page .login-container .login-card .logo-container {
+  text-align: center;
+}
+.login-page .login-container .login-card .logo-container img {
+  width: 100px;
+  height: 100px;
 }
 .login-page .login-container .login-card h2 {
   margin-bottom: 0.5rem;
@@ -39,6 +46,7 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
+  outline: none;
 }
 .login-page .login-container .login-card .btn-login {
   width: 100%;
@@ -55,12 +63,15 @@
 .login-page .login-container .login-card .btn-login:hover {
   opacity: 0.9;
 }
+.login-page .login-container .login-card .btn-register {
+  background: linear-gradient(to right, #00c9ff, #92fe9d);
+}
 .login-page .login-container .login-card .register-link {
   margin-top: 1rem;
   text-align: center;
 }
 .login-page .login-container .login-card .register-link a {
-  color: #6a11cb;
+  color: #2575fc;
   text-decoration: underline;
 }
 
