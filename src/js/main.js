@@ -90,11 +90,17 @@ async function renderPosts() {
               : ""
           }
         </div>
-        <div class="post__actions">
-          <button class="post__action-btn"><i class="fa-regular fa-thumbs-up"></i> Like</button>
-          <button class="post__action-btn"><i class="fa-regular fa-comment"></i> Comment</button>
-          <button class="post__action-btn"><i class="fa-regular fa-share-from-square"></i> Share</button>
-        </div>
+     <div class="post__actions">
+  <button class="post__action-btn like-btn"><i class="fa-regular fa-thumbs-up"></i> Like</button>
+  <button class="post__action-btn comment-btn"><i class="fa-regular fa-comment"></i> Comment</button>
+  <button class="post__action-btn share-btn"><i class="fa-regular fa-share-from-square"></i> Share</button>
+  <button class="post__action-btn edit-btn" data-id="${
+    post.id
+  }"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+  <button class="post__action-btn delete-btn" data-id="${
+    post.id
+  }"><i class="fa-solid fa-trash"></i> Delete</button>
+</div>
       `;
       postsFeed.appendChild(postElement);
     });
