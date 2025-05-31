@@ -94,6 +94,7 @@
 
 // -- Home Page --
 .home-page {
+  overflow-x: hidden;
   .main-nav {
     display: flex;
     width: 100%;
@@ -410,7 +411,33 @@
 
   &__bottom {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .upload-label {
+    background-color: #e0f0ff;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: #007bff;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #cce4ff;
+    }
+
+    i {
+      font-size: 1rem;
+    }
+  }
+
+  input[type="file"] {
+    display: none;
   }
 
   &__button {
@@ -529,10 +556,11 @@
   padding: 1rem;
   background-color: #f9f9f9;
   border-left: 1px solid #ddd;
-  height: 100vh;
+  height: 600px;
   overflow-y: auto;
-  position: sticky;
-  top: 0;
+  right: 0;
+  position: absolute;
+  top: 100px;
 
   &__title {
     font-size: 1.2rem;

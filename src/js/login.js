@@ -13,6 +13,7 @@ form.addEventListener("submit", async (e) => {
   if (user) {
     alert(`Welcome, ${user.name}!`);
     localStorage.setItem("loggedInUser", JSON.stringify(user));
+    window.location.href = "../views/home.html"; // 👈 Redirect to home
   } else {
     alert("Invalid email or password");
   }

@@ -77,6 +77,9 @@
   text-decoration: underline;
 }
 
+.home-page {
+  overflow-x: hidden;
+}
 .home-page .main-nav {
   display: flex;
   width: 100%;
@@ -363,7 +366,30 @@
 }
 .create-post__bottom {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.create-post .upload-label {
+  background-color: #e0f0ff;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  color: #007bff;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+.create-post .upload-label:hover {
+  background-color: #cce4ff;
+}
+.create-post .upload-label i {
+  font-size: 1rem;
+}
+.create-post input[type=file] {
+  display: none;
 }
 .create-post__button {
   background-color: #1877f2;
@@ -464,10 +490,11 @@
   padding: 1rem;
   background-color: #f9f9f9;
   border-left: 1px solid #ddd;
-  height: 100vh;
+  height: 600px;
   overflow-y: auto;
-  position: sticky;
-  top: 0;
+  right: 0;
+  position: absolute;
+  top: 100px;
 }
 .right-sidebar__title {
   font-size: 1.2rem;

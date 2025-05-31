@@ -57,13 +57,21 @@
         <li><i class="fa-solid fa-bell"></i></li>
         <li><i class="fa-solid fa-circle-user"></i></li>
       </ul>
+      <button
+        id="logout-btn"
+        class="logout-button"
+        style="padding: 10px 20px; cursor: pointer"
+      >
+        Logout
+      </button>
     </nav>
     <div class="side__container">
       <aside class="left-sidebar">
         <ul class="items">
           <li>
             <a href="">
-              <i class="fa-solid fa-circle-user"></i> <span>Omar Ismail</span>
+              <i class="fa-solid fa-circle-user"></i>
+              <span id="userName"></span>
             </a>
           </li>
           <li>
@@ -178,98 +186,36 @@
             </div>
           </div>
         </div>
+
         <!-- Create Post -->
         <section class="create-post">
-          <div class="create-post__top">
-            <img
-              src="../assets/images/ali-pli-lDLEUVf7D1U-unsplash.jpg"
-              alt="User Avatar"
-              class="create-post__avatar"
-            />
-            <input
-              type="text"
-              class="create-post__input"
-              placeholder="What's on your mind?"
-            />
-          </div>
-          <div class="create-post__bottom">
-            <button class="create-post__button">Post</button>
-          </div>
+          <form id="createPostForm">
+            <div class="create-post__top">
+              <img
+                src="../assets/images/ali-pli-lDLEUVf7D1U-unsplash.jpg"
+                alt="User Avatar"
+                class="create-post__avatar"
+              />
+              <input
+                type="text"
+                id="post-content"
+                class="create-post__input"
+                placeholder="What's on your mind?"
+              />
+            </div>
+
+            <div class="create-post__bottom">
+              <label for="post-image" class="upload-label">
+                <i class="fa fa-image"></i> Add Image
+              </label>
+              <input type="file" id="post-image" accept="image/*" hidden />
+              <button type="submit" class="create-post__button">Post</button>
+            </div>
+          </form>
         </section>
 
         <!-- Posts -->
-        <section class="posts-feed">
-          <div class="post">
-            <div class="post__header">
-              <img
-                src="../assets/images/ali-pli-lDLEUVf7D1U-unsplash.jpg"
-                alt="User Avatar"
-                class="post__avatar"
-              />
-              <div class="post__user-info">
-                <h4 class="post__username">Omar Ismail</h4>
-                <p class="post__timestamp">2 hrs ago</p>
-              </div>
-            </div>
-
-            <div class="post__content">
-              <p>Just tried out SocialSphere — loving the vibe so far! 🎉</p>
-              <!-- Optional image -->
-              <img
-                src="../assets/images/simon-reza-_ZxKX-Qmqps-unsplash.jpg"
-                alt="Post"
-                class="post__image"
-              />
-            </div>
-
-            <div class="post__actions">
-              <button class="post__action-btn">
-                <i class="fa-regular fa-thumbs-up"></i> Like
-              </button>
-              <button class="post__action-btn">
-                <i class="fa-regular fa-comment"></i> Comment
-              </button>
-              <button class="post__action-btn">
-                <i class="fa-regular fa-share-from-square"></i> Share
-              </button>
-            </div>
-          </div>
-          <div class="post">
-            <div class="post__header">
-              <img
-                src="../assets/images/ali-pli-lDLEUVf7D1U-unsplash.jpg"
-                alt="User Avatar"
-                class="post__avatar"
-              />
-              <div class="post__user-info">
-                <h4 class="post__username">Omar Ismail</h4>
-                <p class="post__timestamp">2 hrs ago</p>
-              </div>
-            </div>
-
-            <div class="post__content">
-              <p>Just tried out SocialSphere — loving the vibe so far! 🎉</p>
-              <!-- Optional image -->
-              <img
-                src="../assets/images/simon-reza-_ZxKX-Qmqps-unsplash.jpg"
-                alt="Post"
-                class="post__image"
-              />
-            </div>
-
-            <div class="post__actions">
-              <button class="post__action-btn">
-                <i class="fa-regular fa-thumbs-up"></i> Like
-              </button>
-              <button class="post__action-btn">
-                <i class="fa-regular fa-comment"></i> Comment
-              </button>
-              <button class="post__action-btn">
-                <i class="fa-regular fa-share-from-square"></i> Share
-              </button>
-            </div>
-          </div>
-        </section>
+        <section class="posts-feed"></section>
       </main>
 
       <!-- right sidebar -->
@@ -299,4 +245,5 @@
       </aside>
     </div>
   </body>
+  <script type="module" src="../js/main.js"></script>
 </html>
