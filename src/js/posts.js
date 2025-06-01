@@ -41,18 +41,20 @@ async function addComment(postId, content) {
   };
 
   try {
-    // First, get the post to check if it exists
+    // First, get the post to check if it exists and get current comments
     const postResponse = await fetch(`https://magenta-helpful-march.glitch.me/posts/${postId}`);
     if (!postResponse.ok) {
       throw new Error('Post not found');
     }
+    const post = await postResponse.json();
+    const currentComments = post.comments || [];
 
-    // Then add the comment
+    // Then add the new comment to the existing comments array
     const response = await fetch(`https://magenta-helpful-march.glitch.me/posts/${postId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
-        comments: [comment] // Add the new comment to the post's comments array
+        comments: [...currentComments, comment] // Append the new comment to existing comments
       })
     });
 
