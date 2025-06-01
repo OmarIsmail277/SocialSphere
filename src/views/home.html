@@ -248,31 +248,26 @@
         Chatbot Gemini
         <button id="chatbot-close-btn" aria-label="Close chat">&times;</button>
       </div>
-
-      <div id="chatbot-messages" role="log" aria-live="polite"></div>
-
-      <form id="chatbot-form" autocomplete="off">
+      <div id="chatbot-messages"></div>
+      <form id="chatbot-form">
         <input
           type="text"
           id="chatbot-input"
           placeholder="Type your message..."
-          required
-          aria-label="Type your message"
+          autocomplete="off"
         />
-        <button type="submit">Send</button>
+        <button type="submit">
+          <i class="fas fa-paper-plane"></i>
+        </button>
       </form>
     </div>
-    <!-- Minimized chat button -->
-    <div
-      id="chatbot-minimized"
-      aria-label="Open chat"
-      role="button"
-      tabindex="0"
-      hidden
-    >
-      💬
+
+    <!-- Chatbot minimized button -->
+    <div id="chatbot-minimized">
+      <i class="fas fa-comments"></i>
     </div>
   </body>
   <script type="module" src="../js/main.js"></script>
   <script type="module" src="../js/chatbot.js"></script>
+  <script src="../js/auth.js"></script>
 </html>

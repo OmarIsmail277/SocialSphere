@@ -88,8 +88,7 @@ async function renderPosts() {
       postElement.className = "post";
       postElement.innerHTML = `
         <div class="post__header">
-        
-
+        <a href="post.html?id=${post.id}" class="view-post-btn">View Details</a>
           <img src= "${
             post.userId === user.id
               ? `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${user.id}`

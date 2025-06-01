@@ -23,9 +23,13 @@ function loadChatHistory() {
   chatHistory = JSON.parse(localStorage.getItem(historyKey)) || [];
   
   chatbotMessages.innerHTML = ''; // Clear existing messages
-  chatHistory.forEach(msg => {
-    addMessage(msg.parts[0].text, msg.role === 'user' ? 'user' : 'bot');
-  });
+  if (chatHistory.length === 0) {
+    addMessage("Hello! I'm Gemini. Ask me anything.");
+  } else {
+    chatHistory.forEach(msg => {
+      addMessage(msg.parts[0].text, msg.role === 'user' ? 'user' : 'bot');
+    });
+  }
 }
 
 // Function to add messages to chatbox with typing animation
@@ -73,13 +77,17 @@ function clearChatHistory() {
 // UI Controls
 chatbotCloseBtn.addEventListener("click", () => {
   chatbotContainer.classList.add("minimized");
-  chatbotMinimized.hidden = false;
+  if (chatbotMinimized) {
+    chatbotMinimized.style.display = "flex";
+  }
 });
 
-chatbotMinimized.addEventListener("click", () => {
-  chatbotContainer.classList.remove("minimized");
-  chatbotMinimized.hidden = true;
-});
+if (chatbotMinimized) {
+  chatbotMinimized.addEventListener("click", () => {
+    chatbotContainer.classList.remove("minimized");
+    chatbotMinimized.style.display = "none";
+  });
+}
 
 // Gemini API Configuration
 const GEMINI_API_KEY = "AIzaSyBzZowSwMec5zEFgWTSox1qTQ36gjwu_nw";

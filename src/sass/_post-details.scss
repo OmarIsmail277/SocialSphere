@@ -1,0 +1,277 @@
+.post-details-page {
+  background-color: #f0f2f5;
+  min-height: 100vh;
+}
+
+.post-details-container {
+  max-width: 680px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.post-details-content {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  overflow: hidden;
+
+  .post {
+    padding: 16px;
+
+    &__header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    &__avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 12px;
+      object-fit: cover;
+    }
+
+    &__info {
+      flex-grow: 1;
+
+      h4 {
+        margin: 0;
+        font-size: 1rem;
+        color: #1c1e21;
+        font-weight: 600;
+      }
+
+      p {
+        margin: 4px 0 0;
+        font-size: 0.8rem;
+        color: #65676b;
+      }
+    }
+
+    &__content {
+      margin-bottom: 16px;
+
+      p {
+        margin: 0 0 12px;
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #1c1e21;
+        white-space: pre-wrap;
+      }
+
+      img {
+        max-width: 100%;
+        border-radius: 8px;
+        margin-top: 12px;
+      }
+    }
+
+    &__actions {
+      display: flex;
+      gap: 8px;
+      padding-top: 12px;
+      justify-content: space-between;
+      border-top: 1px solid #e4e6eb;
+
+      button {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: none;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        color: #65676b;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 0.9rem;
+
+        &:hover {
+          background-color: #f2f2f2;
+        }
+
+        i {
+          font-size: 1.1rem;
+        }
+
+        span {
+          font-size: 0.9rem;
+        }
+
+        &.liked {
+          color: #1877f2;
+        }
+
+        &.edit-btn {
+          color: #1877f2;
+          &:hover {
+            background-color: #e7f3ff;
+          }
+        }
+
+        &.delete-btn {
+          color: #e41e3f;
+          &:hover {
+            background-color: #ffe7e7;
+          }
+        }
+      }
+    }
+  }
+}
+
+.comments-section {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+
+  h3 {
+    margin: 0 0 16px;
+    font-size: 1.2rem;
+    color: #1c1e21;
+    font-weight: 600;
+  }
+}
+
+.comment-form {
+  margin-bottom: 20px;
+
+  .comment-input-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f0f2f5;
+    padding: 8px;
+    border-radius: 20px;
+  }
+
+  .comment-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .comment-input {
+    flex-grow: 1;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    font-size: 0.9rem;
+    outline: none;
+    color: #1c1e21;
+
+    &::placeholder {
+      color: #65676b;
+    }
+  }
+
+  .comment-submit {
+    background: #1877f2;
+    color: white;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: #166fe5;
+    }
+
+    &:disabled {
+      background: #e4e6eb;
+      cursor: not-allowed;
+    }
+
+    i {
+      font-size: 1rem;
+    }
+  }
+}
+
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .comment {
+    display: flex;
+    gap: 12px;
+
+    .comment-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .comment-content {
+      flex-grow: 1;
+      background: #f0f2f5;
+      padding: 8px 12px;
+      border-radius: 18px;
+
+      .comment-header {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        margin-bottom: 4px;
+
+        h4 {
+          margin: 0;
+          font-size: 0.9rem;
+          color: #1c1e21;
+          font-weight: 600;
+        }
+
+        span {
+          font-size: 0.8rem;
+          color: #65676b;
+        }
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        color: #1c1e21;
+        white-space: pre-wrap;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .post-details-container {
+    padding: 0 12px;
+  }
+
+  .post-details-content {
+    .post {
+      padding: 12px;
+
+      &__actions {
+        flex-wrap: wrap;
+
+        button {
+          padding: 6px 10px;
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+
+  .comments-section {
+    padding: 12px;
+  }
+}

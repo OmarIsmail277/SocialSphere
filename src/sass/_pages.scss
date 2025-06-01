@@ -478,6 +478,7 @@
       align-items: center;
       gap: 1rem;
       margin-bottom: 0.75rem;
+      position: relative;
     }
 
     &__avatar {
@@ -545,6 +546,20 @@
       i {
         font-size: 1rem;
       }
+
+      &.edit-btn {
+        color: #1877f2;
+        &:hover {
+          background-color: #e7f3ff;
+        }
+      }
+
+      &.delete-btn {
+        color: #e41e3f;
+        &:hover {
+          background-color: #ffe7e7;
+        }
+      }
     }
   }
 }
@@ -610,4 +625,10 @@
       }
     }
   }
+}
+
+.view-post-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
 }

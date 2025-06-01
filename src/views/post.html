@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../../dist/main.css" />
+    <title>SocialSphere | Post Details</title>
+  </head>
+  <body class="post-details-page home-page">
+    <nav class="main-nav">
+      <div class="logo__search">
+        <a href="home.html">
+          <img src="../assets/images/user.png" alt="SocialSphere Logo" />
+        </a>
+        <div class="header__search">
+          <i class="fas fa-search header__search-icon"></i>
+          <input
+            type="text"
+            placeholder="Search SocialSphere"
+            class="header__search-input"
+          />
+        </div>
+      </div>
+
+      <ul class="center-items">
+        <li>
+          <a href="home.html"><i class="fa-solid fa-house"></i></a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fa-solid fa-circle-play"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#"> <i class="fa-solid fa-shop"></i> </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fa-solid fa-users-rectangle"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fa-solid fa-gamepad"></i>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="right-items">
+        <li><i class="fa-solid fa-table-list"></i></li>
+        <li><i class="fa-brands fa-facebook-messenger"></i></li>
+        <li><i class="fa-solid fa-bell"></i></li>
+        <li><i class="fa-solid fa-circle-user"></i></li>
+      </ul>
+      <button
+        id="logout-btn"
+        class="logout-button"
+        style="padding: 10px 20px; cursor: pointer"
+      >
+        Logout
+      </button>
+    </nav>
+
+    <!-- Main section -->
+    <main class="feed">
+      <div class="post-details-container">
+        <div class="post-details-content">
+          <!-- Post content will be dynamically inserted here -->
+        </div>
+      </div>
+    </main>
+
+    <!-- Chatbot widget container -->
+    <div id="chatbot-container">
+      <div id="chatbot-header">
+        Chatbot Gemini
+        <button id="chatbot-close-btn" aria-label="Close chat">&times;</button>
+      </div>
+      <div id="chatbot-messages"></div>
+      <form id="chatbot-form">
+        <input
+          type="text"
+          id="chatbot-input"
+          placeholder="Type your message..."
+          autocomplete="off"
+        />
+        <button type="submit">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- Chatbot minimized button -->
+    <div id="chatbot-minimized">
+      <i class="fas fa-comments"></i>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/posts.js"></script>
+    <script src="../js/chatbot.js"></script>
+  </body>
+</html>
