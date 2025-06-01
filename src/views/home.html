@@ -132,10 +132,7 @@
         <div class="stories-container">
           <div class="story create-story">
             <div class="story-img">
-              <img
-                src="../assets/images/ali-pli-lDLEUVf7D1U-unsplash.jpg"
-                alt="Your Profile"
-              />
+              <img id="mainStoryImg" src="" alt="Your Profile" />
             </div>
             <div class="story-text">
               <i class="fa-solid fa-plus"></i>
@@ -192,7 +189,8 @@
           <form id="createPostForm">
             <div class="create-post__top">
               <img
-                src="../assets/images/ali-pli-lDLEUVf7D1U-unsplash.jpg"
+                id="imgCreatePost"
+                src=""
                 alt="User Avatar"
                 class="create-post__avatar"
               />
@@ -244,6 +242,37 @@
         </ul>
       </aside>
     </div>
+    <!-- Chatbot widget container -->
+    <div id="chatbot-container">
+      <div id="chatbot-header">
+        Chatbot Gemini
+        <button id="chatbot-close-btn" aria-label="Close chat">&times;</button>
+      </div>
+
+      <div id="chatbot-messages" role="log" aria-live="polite"></div>
+
+      <form id="chatbot-form" autocomplete="off">
+        <input
+          type="text"
+          id="chatbot-input"
+          placeholder="Type your message..."
+          required
+          aria-label="Type your message"
+        />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+    <!-- Minimized chat button -->
+    <div
+      id="chatbot-minimized"
+      aria-label="Open chat"
+      role="button"
+      tabindex="0"
+      hidden
+    >
+      💬
+    </div>
   </body>
   <script type="module" src="../js/main.js"></script>
+  <script type="module" src="../js/chatbot.js"></script>
 </html>

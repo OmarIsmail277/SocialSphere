@@ -4,6 +4,14 @@ const user = JSON.parse(localStorage.getItem("loggedInUser"));
 
 const form = document.getElementById("createPostForm");
 
+const avatarUrl = `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${user.id}`;
+
+const createPostImage = document.getElementById("imgCreatePost");
+const mainStoryImage = document.getElementById("mainStoryImg");
+
+createPostImage.src = avatarUrl;
+mainStoryImage.src = avatarUrl;
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -29,11 +37,14 @@ form.addEventListener("submit", async (e) => {
   };
 
   try {
-    const response = await fetch("http://localhost:3000/posts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(post),
-    });
+    const response = await fetch(
+      "https://magenta-helpful-march.glitch.me/posts",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(post),
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();
@@ -60,21 +71,30 @@ function toBase64(file) {
 
 async function renderPosts() {
   try {
-    const response = await fetch("http://localhost:3000/posts");
+    const response = await fetch(
+      "https://magenta-helpful-march.glitch.me/posts"
+    );
     const posts = await response.json();
 
-    const userPosts = posts.filter((post) => post.userId === user.id);
+    // const userPosts = posts.filter((post) => post.userId === user.id);
+    const allPosts = posts;
     document.getElementById("userName").textContent = user.name;
 
     const postsFeed = document.querySelector(".posts-feed");
     postsFeed.innerHTML = ""; // Clear old content
 
-    userPosts.reverse().forEach((post) => {
+    allPosts.reverse().forEach((post) => {
       const postElement = document.createElement("div");
       postElement.className = "post";
       postElement.innerHTML = `
         <div class="post__header">
-          <img src="../assets/images/ali-pli-lDLEUVf7D1U-unsplash.jpg" alt="User Avatar" class="post__avatar" />
+        
+
+          <img src= "${
+            post.userId === user.id
+              ? `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${user.id}`
+              : `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${post.userId}`
+          }"  alt="User Avatar" class="post__avatar" />
           <div class="post__user-info">
             <h4 class="post__username">${post.user}</h4>
             <p class="post__timestamp">${new Date(
@@ -94,15 +114,66 @@ async function renderPosts() {
   <button class="post__action-btn like-btn"><i class="fa-regular fa-thumbs-up"></i> Like</button>
   <button class="post__action-btn comment-btn"><i class="fa-regular fa-comment"></i> Comment</button>
   <button class="post__action-btn share-btn"><i class="fa-regular fa-share-from-square"></i> Share</button>
-  <button class="post__action-btn edit-btn" data-id="${
-    post.id
-  }"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
-  <button class="post__action-btn delete-btn" data-id="${
-    post.id
-  }"><i class="fa-solid fa-trash"></i> Delete</button>
+  ${
+    post.userId === user.id
+      ? `<button class="post__action-btn edit-btn" data-id="${post.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+  <button class="post__action-btn delete-btn" data-id="${post.id}"><i class="fa-solid fa-trash"></i> Delete</button>`
+      : ""
+  }
 </div>
       `;
       postsFeed.appendChild(postElement);
+    });
+
+    document.querySelectorAll(".delete-btn").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const postId = btn.dataset.id;
+
+        if (confirm("Are you sure you want to delete this post?")) {
+          try {
+            const res = await fetch(
+              `https://magenta-helpful-march.glitch.me/posts/${postId}`,
+              {
+                method: "DELETE",
+              }
+            );
+            if (res.ok) {
+              await renderPosts(); // Re-render posts after deletion
+            } else {
+              alert("Failed to delete post");
+            }
+          } catch (err) {
+            console.error("Delete error:", err);
+          }
+        }
+      });
+    });
+
+    document.querySelectorAll(".edit-btn").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        const postId = btn.dataset.id;
+        const newContent = prompt("Edit your post:");
+
+        if (newContent !== null && newContent.trim()) {
+          try {
+            const res = await fetch(
+              `https://magenta-helpful-march.glitch.me/posts/${postId}`,
+              {
+                method: "PATCH",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ content: newContent.trim() }),
+              }
+            );
+            if (res.ok) {
+              await renderPosts(); // Re-render posts after editing
+            } else {
+              alert("Failed to update post");
+            }
+          } catch (err) {
+            console.error("Edit error:", err);
+          }
+        }
+      });
     });
   } catch (error) {
     console.error("Error loading posts:", error);

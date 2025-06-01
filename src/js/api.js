@@ -1,4 +1,4 @@
-export const BASE_URL = `http://localhost:3000/users`;
+export const BASE_URL = `https://magenta-helpful-march.glitch.me/users`;
 
 // Register user
 export async function registerUser(userData) {

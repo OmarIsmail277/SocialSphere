@@ -1,0 +1,132 @@
+#chatbot {
+  &-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+
+    &.minimized {
+      transform: translateY(calc(100% - 40px));
+    }
+  }
+
+  &-header {
+    padding: 15px;
+    background: #4267B2;
+    color: white;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &-close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  &-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .user,
+    .bot {
+      max-width: 80%;
+      padding: 10px 15px;
+      border-radius: 15px;
+      margin: 5px 0;
+      word-wrap: break-word;
+    }
+
+    .user {
+      background: #4267B2;
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 5px;
+    }
+
+    .bot {
+      background: #f0f2f5;
+      color: #1c1e21;
+      align-self: flex-start;
+      border-bottom-left-radius: 5px;
+
+      &.typing {
+        min-width: 50px;
+        animation: pulse 1s infinite;
+      }
+    }
+  }
+
+  &-form {
+    padding: 15px;
+    border-top: 1px solid #e4e6eb;
+    display: flex;
+    gap: 10px;
+
+    button {
+      padding: 10px 20px;
+      background: #4267B2;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: #365899;
+      }
+    }
+  }
+
+  &-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e4e6eb;
+    border-radius: 20px;
+    outline: none;
+  }
+
+  &-minimized {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: #4267B2;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 24px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+
+    &:hover {
+      background: #365899;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}

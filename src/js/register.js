@@ -11,6 +11,8 @@ form.addEventListener("submit", async (e) => {
     password: document.getElementById("password").value.trim(),
   };
 
+  // user.img = `https://api.dicebear.com/8.x/lorelei/svg?seed=${user.id}&gender=male`;
+
   const confirmPassword = document
     .getElementById("confirmPassword")
     .value.trim();
