@@ -30,6 +30,122 @@ async function loadPostDetails() {
   }
 }
 
+// Add comment to a post
+async function addComment(postId, content) {
+  const user = JSON.parse(localStorage.getItem('loggedInUser'));
+  const comment = {
+    userId: user.id,
+    user: user.name,
+    content,
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    // First, get the post to check if it exists
+    const postResponse = await fetch(`https://magenta-helpful-march.glitch.me/posts/${postId}`);
+    if (!postResponse.ok) {
+      throw new Error('Post not found');
+    }
+
+    // Then add the comment
+    const response = await fetch(`https://magenta-helpful-march.glitch.me/posts/${postId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        comments: [comment] // Add the new comment to the post's comments array
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to add comment');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error adding comment:', error);
+    throw error;
+  }
+}
+
+// Load comments for a post
+async function loadComments(postId) {
+  try {
+    const response = await fetch(`https://magenta-helpful-march.glitch.me/posts/${postId}`);
+    if (!response.ok) {
+      throw new Error('Failed to load post');
+    }
+    const post = await response.json();
+    return post.comments || []; // Return the comments array or empty array if none exist
+  } catch (error) {
+    console.error('Error loading comments:', error);
+    return [];
+  }
+}
+
+// Render comments section
+function renderCommentsSection(postId) {
+  const commentsSection = document.createElement('div');
+  commentsSection.className = 'comments-section';
+  commentsSection.setAttribute('data-post-id', postId);
+  commentsSection.innerHTML = `
+    <h3>Comments</h3>
+    <form class="comment-form">
+      <div class="comment-input-container">
+        <img src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${user.id}" alt="User Avatar" class="comment-avatar" />
+        <input type="text" class="comment-input" placeholder="Write a comment..." />
+        <button type="submit" class="comment-submit">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    </form>
+    <div class="comments-list"></div>
+  `;
+
+  // Add comment form submission handler
+  const commentForm = commentsSection.querySelector('.comment-form');
+  commentForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const input = commentForm.querySelector('.comment-input');
+    const content = input.value.trim();
+
+    if (!content) return;
+
+    try {
+      await addComment(postId, content);
+      input.value = '';
+      await renderComments(postId);
+    } catch (error) {
+      alert('Failed to add comment. Please try again.');
+    }
+  });
+
+  return commentsSection;
+}
+
+// Render individual comments
+async function renderComments(postId) {
+  const commentsList = document.querySelector(`.comments-section[data-post-id="${postId}"] .comments-list`);
+  if (!commentsList) return;
+
+  try {
+    const comments = await loadComments(postId);
+    commentsList.innerHTML = comments.map(comment => `
+      <div class="comment">
+        <img src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${comment.userId}" alt="User Avatar" class="comment-avatar" />
+        <div class="comment-content">
+          <div class="comment-header">
+            <h4>${comment.user}</h4>
+            <span>${new Date(comment.timestamp).toLocaleString()}</span>
+          </div>
+          <p>${comment.content}</p>
+        </div>
+      </div>
+    `).join('');
+  } catch (error) {
+    console.error('Error rendering comments:', error);
+  }
+}
+
 // Render post details
 function renderPostDetails(post) {
   const avatarUrl = `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${post.userId}`;
@@ -64,6 +180,14 @@ function renderPostDetails(post) {
   `;
 
   postDetailsContent.innerHTML = postHTML;
+  
+  // Add comments section
+  const commentsSection = renderCommentsSection(post.id);
+  postDetailsContent.appendChild(commentsSection);
+  
+  // Load and render comments
+  renderComments(post.id);
+  
   setupPostActions();
 }
 

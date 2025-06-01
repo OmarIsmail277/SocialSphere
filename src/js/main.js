@@ -76,7 +76,6 @@ async function renderPosts() {
     );
     const posts = await response.json();
 
-    // const userPosts = posts.filter((post) => post.userId === user.id);
     const allPosts = posts;
     document.getElementById("userName").textContent = user.name;
 
@@ -88,8 +87,8 @@ async function renderPosts() {
       postElement.className = "post";
       postElement.innerHTML = `
         <div class="post__header">
-        <a href="post.html?id=${post.id}" class="view-post-btn">View Details</a>
-          <img src= "${
+          <a href="post.html?id=${post.id}" class="view-post-btn">View Details</a>
+          <img src="${
             post.userId === user.id
               ? `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${user.id}`
               : `https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${post.userId}`
@@ -109,19 +108,52 @@ async function renderPosts() {
               : ""
           }
         </div>
-     <div class="post__actions">
-  <button class="post__action-btn like-btn"><i class="fa-regular fa-thumbs-up"></i> Like</button>
-  <button class="post__action-btn comment-btn"><i class="fa-regular fa-comment"></i> Comment</button>
-  <button class="post__action-btn share-btn"><i class="fa-regular fa-share-from-square"></i> Share</button>
-  ${
-    post.userId === user.id
-      ? `<button class="post__action-btn edit-btn" data-id="${post.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
-  <button class="post__action-btn delete-btn" data-id="${post.id}"><i class="fa-solid fa-trash"></i> Delete</button>`
-      : ""
-  }
-</div>
+        <div class="post__actions">
+          <button class="post__action-btn like-btn"><i class="fa-regular fa-thumbs-up"></i> Like</button>
+          <button class="post__action-btn comment-btn"><i class="fa-regular fa-comment"></i> Comment</button>
+          <button class="post__action-btn share-btn"><i class="fa-regular fa-share-from-square"></i> Share</button>
+          ${
+            post.userId === user.id
+              ? `<button class="post__action-btn edit-btn" data-id="${post.id}"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                <button class="post__action-btn delete-btn" data-id="${post.id}"><i class="fa-solid fa-trash"></i> Delete</button>`
+              : ""
+          }
+        </div>
+        <div class="comments-section" data-post-id="${post.id}">
+          <form class="comment-form">
+            <div class="comment-input-container">
+              <img src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${user.id}" alt="User Avatar" class="comment-avatar" />
+              <input type="text" class="comment-input" placeholder="Write a comment..." />
+              <button type="submit" class="comment-submit">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </div>
+          </form>
+          <div class="comments-list"></div>
+        </div>
       `;
       postsFeed.appendChild(postElement);
+
+      // Setup comment form for this post
+      const commentForm = postElement.querySelector('.comment-form');
+      commentForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const input = commentForm.querySelector('.comment-input');
+        const content = input.value.trim();
+
+        if (!content) return;
+
+        try {
+          await addComment(post.id, content);
+          input.value = '';
+          await renderComments(post.id);
+        } catch (error) {
+          alert('Failed to add comment. Please try again.');
+        }
+      });
+
+      // Load comments for this post
+      renderComments(post.id);
     });
 
     document.querySelectorAll(".delete-btn").forEach((btn) => {
@@ -176,6 +208,82 @@ async function renderPosts() {
     });
   } catch (error) {
     console.error("Error loading posts:", error);
+  }
+}
+
+// Add comment to a post
+async function addComment(postId, content) {
+  const user = JSON.parse(localStorage.getItem('loggedInUser'));
+  const comment = {
+    userId: user.id,
+    user: user.name,
+    content,
+    timestamp: new Date().toISOString()
+  };
+
+  try {
+    // First, get the post to check if it exists
+    const postResponse = await fetch(`https://magenta-helpful-march.glitch.me/posts/${postId}`);
+    if (!postResponse.ok) {
+      throw new Error('Post not found');
+    }
+
+    // Then add the comment
+    const response = await fetch(`https://magenta-helpful-march.glitch.me/posts/${postId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ 
+        comments: [comment] // Add the new comment to the post's comments array
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to add comment');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error adding comment:', error);
+    throw error;
+  }
+}
+
+// Load comments for a post
+async function loadComments(postId) {
+  try {
+    const response = await fetch(`https://magenta-helpful-march.glitch.me/posts/${postId}`);
+    if (!response.ok) {
+      throw new Error('Failed to load post');
+    }
+    const post = await response.json();
+    return post.comments || []; // Return the comments array or empty array if none exist
+  } catch (error) {
+    console.error('Error loading comments:', error);
+    return [];
+  }
+}
+
+// Render individual comments
+async function renderComments(postId) {
+  const commentsList = document.querySelector(`.comments-section[data-post-id="${postId}"] .comments-list`);
+  if (!commentsList) return;
+
+  try {
+    const comments = await loadComments(postId);
+    commentsList.innerHTML = comments.map(comment => `
+      <div class="comment">
+        <img src="https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${comment.userId}" alt="User Avatar" class="comment-avatar" />
+        <div class="comment-content">
+          <div class="comment-header">
+            <h4>${comment.user}</h4>
+            <span>${new Date(comment.timestamp).toLocaleString()}</span>
+          </div>
+          <p>${comment.content}</p>
+        </div>
+      </div>
+    `).join('');
+  } catch (error) {
+    console.error('Error rendering comments:', error);
   }
 }
 
